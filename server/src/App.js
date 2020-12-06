@@ -3,9 +3,9 @@ const cors = require('cors');
 const mysql = require('mysql');
 const fs = require('fs');
 
-const app = express();
+const app = table();
 app.use(cors());
-app.use(express.json());
+app.use(table.json());
 
 let table = fs.readFileSync('table.json', 'utf8');
 let connection = mysql.createConnection(table);
