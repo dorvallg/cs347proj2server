@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
@@ -15,8 +13,8 @@ connection.connect();
 
 function rowToObject(row) {
   return {
-    bet = row.bet,
-    is_happening = row.is_happening,
+    betName: row.bet,
+    is_happening: row.is_happening,
   };
 }
 
@@ -31,7 +29,7 @@ app.get('/betting/:bet/:odds', (request, response) => {
   })
 })
 
-const port = 3443;
+const port = 443;
 app.listen(port, () => {
   console.log("we are here");
 });
