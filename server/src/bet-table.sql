@@ -5,5 +5,5 @@ CREATE TABLE bet(
   is_happening INT;
   betName TEXT,
   expires_at TIMESTAMP,
-  is_expired INT, 
+  is_expired INT
 );

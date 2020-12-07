@@ -1,6 +1,6 @@
 {
     "host": "localhost",
-    "database": "today",
+    "database": "bets",
     "user": "bet_user",
     "password": "LaurenChrisProj2"
 }

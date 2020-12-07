@@ -3,15 +3,20 @@ const cors = require('cors');
 const mysql = require('mysql');
 const fs = require('fs');
 
-const app = table();
+const app = express();
 app.use(cors());
-app.use(table.json());
+app.use(express.json());
 
 let table = fs.readFileSync('table.json', 'utf8');
 let connection = mysql.createConnection(table);
 connection.connect();
 
-function rowToObject(row) {
+const port = 433;
+app.listen(port, () => {
+  console.log("we are here");
+});
+
+function rowToObject(row) { 
   return {
     betName: row.bet,
     is_happening: row.is_happening,
@@ -24,13 +29,9 @@ app.get('/betting/:bet/:odds', (request, response) => {
   connection.query(query, params, (error, rows) => {
     response.send({
       ok: true,
-      memories: rows.map(rowTooObject),
+      memories: rows.map(rowToObject),
     })
   })
 })
 
-const port = 443;
-app.listen(port, () => {
-  console.log("we are here");
-});
 
