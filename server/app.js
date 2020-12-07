@@ -18,6 +18,7 @@ app.listen(port, () => {
 
 function rowToObject(row) { 
   return {
+    
     betName: row.bet,
     is_happening: row.is_happening,
   };
