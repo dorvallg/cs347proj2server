@@ -7,18 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/**
 let table = fs.readFileSync('express.json', 'utf8');
 let connection = mysql.createConnection(table);
 connection.connect();
-*/
 
 const port = 433;
 app.listen(port, () => {
   console.log("we are here");
 });
 
-/** 
 function rowToObject(row) { 
   return {
     betName: row.bet,
@@ -36,6 +33,5 @@ app.get('/betting/:bet/:odds', (request, response) => {
     })
   })
 })
-*/
 
 
