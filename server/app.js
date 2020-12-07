@@ -11,7 +11,7 @@ let table = fs.readFileSync('express.json', 'utf8');
 let connection = mysql.createConnection(table);
 connection.connect();
 
-const port = 433;
+const port = 3306;
 app.listen(port, () => {
   console.log("we are here");
 });
