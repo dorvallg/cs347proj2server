@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let table = fs.readFileSync('express.json', 'utf8');
+let table = JSON.parse(fs.readFileSync('express.json', 'utf8'));
 let connection = mysql.createConnection(table);
 connection.connect();
 
