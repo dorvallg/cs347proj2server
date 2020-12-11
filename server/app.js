@@ -7,32 +7,43 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let table = JSON.parse(fs.readFileSync('express.json', 'utf8'));
+let table = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
 let connection = mysql.createConnection(table);
 connection.connect();
 
-const port = 8443;
+const port = 3443;
 app.listen(port, () => {
   console.log("we are here");
 });
 
 function rowToObject(row) { 
   return {
-    
-    betName: row.bet,
-    is_happening: row.is_happening,
+    betName: row.betName,	  
+    in_favor: row.in_favor,
+    against: row.against,
+    expires_at: row.expires_at,
+    is_expired: row.is_expired,
   };
 }
 
-app.get('/betting/:bet/:odds', (request, response) => {
-  const query = 'SELECT bet, is_happening, id FROM bet-table WHERE is_expired = 0 AND bet = ? AND odds = ?';
-  const params = [request.params.bet, request.params.odds]
+app.get('/bets/:is_expired', (request, response) => {
+  const query = 'SELECT betName, in_favor, against, expires_at, is_expired, id FROM bet WHERE is_expired = 0';
+  const params = [request.params.betName, request.params.odds]
   connection.query(query, params, (error, rows) => {
     response.send({
       ok: true,
-      memories: rows.map(rowToObject),
+      bets: rows.map(rowToObject),
     })
   })
 })
 
-
+app.post('/bets/', (request, response) => {
+  const query = 'INSERT INTO bet(betName, in_favor, against, expires_at) VALUES (?,?,?,?)';
+  const params = [request.body.betName, request.body.in_favor, request.body.against, request.body.expires_at];
+  connection.query(query, params, (error, result) => {
+    response.send({
+      okay: true,
+      id: result.insertId,
+    });
+  });
+});
