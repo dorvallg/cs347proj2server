@@ -4,6 +4,6 @@ CREATE TABLE bet(
   in_favor INT,
   against INT,
   betName TEXT,
-  expires_at TIMESTAMP,
+  expires_at TEXT,
   is_expired INT DEFAULT 0
 );
