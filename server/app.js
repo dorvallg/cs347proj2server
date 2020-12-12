@@ -29,8 +29,8 @@ function rowToObject(row) {
 
 app.get('/bets/:is_expired', (request, response) => {
   const query = 'SELECT betName, in_favor, against, expires_at, is_expired, id FROM bet WHERE is_expired = 0';
-  const params = [request.params.betName, request.params.id]
-  connection.query(query, params, (error, rows) => {
+  const params = [request.params.betName, request.params.id];
+   connection.query(query, params, (error, rows) => {
     response.send({
       ok: true,
       bets: rows.map(rowToObject),
