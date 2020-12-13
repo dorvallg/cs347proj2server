@@ -27,6 +27,7 @@ function rowToObject(row) {
   };
 }
 
+//Get bets from the table where the bets are not past their expiration date.
 app.get('/bets/:is_expired', (request, response) => {
   const query = 'SELECT betName, in_favor, against, expires_at, is_expired, id FROM bet WHERE is_expired = 0';
   const params = [request.params.betName, request.params.id];
@@ -38,6 +39,7 @@ app.get('/bets/:is_expired', (request, response) => {
   })
 })
 
+//Add a new bet with the parameters found in the body of the request.
 app.post('/bets/', (request, response) => {
   const query = 'INSERT INTO bet(betName, in_favor, against, expires_at) VALUES (?,?,?,?)';
   const params = [request.body.betName, request.body.in_favor, request.body.against, request.body.expires_at];
@@ -49,8 +51,8 @@ app.post('/bets/', (request, response) => {
   });
 });
 
+//Update the bet found within the body, based on the id.
 app.patch('/bets/:id', (request, response) => {
-  console.log(request.body);
   const query = 'UPDATE bet SET betName = ?, in_favor = ?, against = ?, expires_at = ?, is_expired = ? WHERE id = ?';
   const params = [request.body.betName, request.body.in_favor, request.body.against, request.body.expires_at, request.body.is_expired, request.params.id];
   connection.query(query, params, (error, result) => {
